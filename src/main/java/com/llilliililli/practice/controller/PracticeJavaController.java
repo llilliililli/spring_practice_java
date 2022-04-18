@@ -13,4 +13,10 @@ public class PracticeJavaController {
         model.addAttribute("username", "llilliililli");
         return "greetings" ;// templates/greetings.mustache -> 브라우저 전송
     }
+
+    @GetMapping("/bye")
+    public String goodBye(Model model){
+        model.addAttribute("nickname","홍길동");
+        return "goodbye";
+    }
 }
