@@ -1,5 +1,7 @@
 package com.llilliililli.practice.dto;
 
+import com.llilliililli.practice.entity.Article;
+
 public class ArticleForm {
 
 
@@ -21,22 +23,10 @@ public class ArticleForm {
         this.content = content;
     }
 
-    public String getTitle() {
-        return title;
+
+
+    // Entity 객체 생성
+    public Article toEntity() {
+        return new Article(null,title,content);
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-
-
 }
