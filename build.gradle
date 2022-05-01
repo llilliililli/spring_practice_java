@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.llilliililli'
 version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '1.8'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA : java 언어의 소스를 DB가 이해할 수 있도록 사용되는 소스
+	implementation 'com.h2database:h2'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 구글 로그인 연동
 //	implementation 'org.springframework.boot:spring-boot-starter-security' // 구글 로그인 연동
 	implementation 'org.springframework.boot:spring-boot-starter-web'

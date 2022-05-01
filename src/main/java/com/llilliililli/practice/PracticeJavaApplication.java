@@ -2,11 +2,10 @@ package com.llilliililli.practice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-//@ComponentScan(basePackages = {"com.llilliililli.practice.repository.ArticleRepository"})
+
+//@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication //(exclude = DataSourceAutoConfiguration.class) // exclude로 인해 @Autowired 적용 불가
 public class PracticeJavaApplication {
 
 	public static void main(String[] args) {

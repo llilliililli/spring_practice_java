@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ArticleController {
 
-    //@Autowired // 스프링 부트가 미리생성 해놓은 객체를 가져다가 자동 연결! //-> 오류 해결 필요
+    @Autowired // 스프링 부트가 미리생성 해놓은 객체를 가져다가 자동 연결! //-> 오류 해결 필요
     private ArticleRepository articleRepository;
+
 
     @GetMapping("/articles/new")
     public String newArticleForm(){
