@@ -1,6 +1,7 @@
 package com.llilliililli.practice.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 
 @Entity //DB가 해당 객체를 인식 가능
 @AllArgsConstructor // 생성자 롬복처리
+@NoArgsConstructor // 디폴트 생성자 롬복처리
 @ToString // ToString 롬복처리
 public class Article {
 
@@ -23,6 +25,10 @@ public class Article {
     @Column
     private String content;
 
+    //디폴트 생성자 ( 파라미터 없는 생성자 )
+//    Article(){
+//
+//    }
 
 
 //롬복으로 인한 제거
