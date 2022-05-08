@@ -12,12 +12,13 @@
     {{#articleList}} <!-- model 사용 -->
     <tr>
         <th scope="row">{{id}}</th>
-        <td>{{title}}</td>
+        <td><a href="/articles/{{id}}">{{title}}</a></td> <!-- title누르면 해당 상세 페이지 이동하도록 a태그로 링크 설정 -->
         <td>{{content}}</td>
     </tr>
     {{/articleList}}
     </tbody>
 </table>
 
+<a href="/articles/new">New Article</a> <!-- 작성 페이지로 이동하는 a태크 링크 -->
 
 {{>layouts/footer}}

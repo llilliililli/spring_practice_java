@@ -46,7 +46,8 @@ public class ArticleController {
         //System.out.println(saved); -> 로깅 기능으로 대체!
         log.info(saved.toString());
 
-        return "";
+        //redirect 적용 ( 생성한 id의 상세 내용 페이지로 이동 )
+        return "redirect:/articles/"+saved.getId();
     }
 
     @GetMapping("/articles/{id}") // 데이터 조회를 위해, 데이터 id 값으로 조회
