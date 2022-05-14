@@ -12,11 +12,12 @@ public class ArticleForm {
 
     private String title;
     private String content;
+    private Long id;
 
 
     // Entity 객체 생성
     public Article toEntity() {
-        return new Article(null,title,content);
+        return new Article(id,title,content);
     }
 
 //롬복으로 인한 제거
