@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity //DB가 해당 객체를 인식 가능
+@Entity //DB가 해당 객체를 인식 가능 ( 해당 클래스로 DB 테이블을 만든다 )
 @AllArgsConstructor // 생성자 롬복처리
 @NoArgsConstructor // 디폴트 생성자 롬복처리
 @ToString // ToString 롬복처리
@@ -18,7 +15,7 @@ import javax.persistence.Id;
 public class Article {
 
     @Id // 대표값을 지정! like a 주민등록번호
-    @GeneratedValue // 1,2,3 .... 자동생성 어노테이션! ( 시퀀스 개념 )
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 id를 1,2,3 .... 자동생성 어노테이션! ( 시퀀스 개념 )
     private Long id;
 
     @Column
