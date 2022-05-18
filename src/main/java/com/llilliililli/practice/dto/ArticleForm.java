@@ -2,10 +2,14 @@ package com.llilliililli.practice.dto;
 
 import com.llilliililli.practice.entity.Article;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor // 생성자 롬복처리
 @ToString // ToString 롬복처리
+@Setter // 데이터 생성을 위한 setter ( api Post 이슈 )
+@NoArgsConstructor // api Post 이슈
 public class ArticleForm {
 
 

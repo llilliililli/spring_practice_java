@@ -24,6 +24,14 @@ public class Article {
     @Column
     private String content;
 
+    // api Update 시, null인 항목 있다면, 기존에 있던 값으로 처리되도록 patch 함수 추가
+    public void patch(Article article){
+        if(article.title != null)
+            this.title = article.title;
+        if(article.content != null)
+            this.content = article.content;
+    }
+
     //디폴트 생성자 ( 파라미터 없는 생성자 )
 //    Article(){
 //
