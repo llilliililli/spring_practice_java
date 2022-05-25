@@ -1,6 +1,8 @@
 package com.llilliililli.practice.controller;
 
+import com.llilliililli.practice.api.CommentsService;
 import com.llilliililli.practice.dto.ArticleForm;
+import com.llilliililli.practice.dto.CommentsDto;
 import com.llilliililli.practice.entity.Article;
 import com.llilliililli.practice.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,8 @@ public class ArticleController {
     @Autowired // 스프링 부트가 미리생성 해놓은 객체를 가져다가 자동 연결! //-> 오류 해결 필요
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private CommentsService commentsService;
 
     @GetMapping("/articles/new")
     public String newArticleForm(){
@@ -60,10 +64,12 @@ public class ArticleController {
         //Optional<Article> articleEntity = articleRepository.findById(id);
 
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        List<CommentsDto> commentsDtos = commentsService.comments(id); // 댓글 리스트 가져오기
 
 
         // 2. 가져온 데이터를 모델에 등록!
         model.addAttribute("article",articleEntity);
+        model.addAttribute("commentsDtos",commentsDtos); // 댓글 리스트 모델 등록
 
         // 3. 보여줄 페이지를 설정!
         return "articles/show";
