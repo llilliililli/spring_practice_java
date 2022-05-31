@@ -1,0 +1,72 @@
+
+<div class="card m-2" id="comments-new">
+    <div class="card-body">
+        <form>
+            <!-- 닉네임 입력 -->
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <input class="form-control form-control-sm" id="new-comments-nickname">
+            </div>
+            <!-- 본문 입력 -->
+            <div class="mb-3">
+                <label class="form-label">댓글 내용</label>
+                <textarea class="form-control form-control-sm" rows="3" id="new-comments-body"></textarea>
+            </div>
+
+            <!-- 히든 입력 -->
+            {{#article}}
+                <input type="hidden"  id="new-comments-article-id" value="{{id}}">
+            {{/article}}
+
+            <!-- 전송 버튼 -->
+            <button type="button" class="btn btn-outline-primary btn-sm" id="comments-create-btn">댓글 작성</button>
+        </form>
+    </div>
+</div>
+
+<!-- javaScript -->
+<script>
+{
+    // 댓글 생성 버튼을 변수화 ( id가 comments-create-btn인 대상 )
+    const commentsCreateBtn = document.querySelector("#comments-create-btn");
+
+    // 버튼 클릭 이벤트를 감지!
+    commentsCreateBtn.addEventListener("click",function(){
+        console.log("버튼이 클릭되었습니다.");
+
+        // 새 댓글 객체 생성
+
+        const comments = {
+            nickname :document.querySelector("#new-comments-nickname").value,
+            body :document.querySelector("#new-comments-body").value,
+            article_id : document.querySelector("#new-comments-article-id").value
+        };
+
+        // 댓글 객체 출력
+        console.log(comments);
+
+        // fetch() - Talend API 요청을 javaScript로 보내준다
+
+        const url = "/api/articles/"+comments.article_id+"/comments";
+
+        fetch(url,{
+
+            method : "post", //post 요청
+            body : JSON.stringify(comments), // comments JS 객체를 JSON으로 변경하여 보냄
+            headers:{
+                "Content-Type" : "application/json"
+            }
+
+        }).then(response => {
+
+            //http 응답 코드에 따른 메시지 출력
+            const msg = (response.ok) ? "댓글이 등록되었습니다." : "댓글 등록 실패..!";
+            alert(msg);
+
+            // 현재 페이지 새로고침
+            window.location.reload();
+        });
+
+    });
+}
+</script>
