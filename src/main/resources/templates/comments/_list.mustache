@@ -4,6 +4,15 @@
         <div class="card m-2" id="comments-{{id}}">
             <div class="card-header">
                 {{nickname}}
+                <!-- Button trigger modal -->
+                <button type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#comments-edit-modal"
+                        data-bs-id="{{id}}"
+                        data-bs-nickname="{{nickname}}"
+                        data-bs-body="{{body}}"
+                        data-bs-article-id="{{articleId}}">수정</button>
             </div>
             <div class="card-body">
                 {{body}}
@@ -11,3 +20,110 @@
         </div>
     {{/commentsDtos}}
 </div>
+
+<!-- Modal : 부트스트랩 팝업창 -->
+<div class="modal fade" id="comments-edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">댓글 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 댓글 수정 폼 -->
+                <form>
+                    <!-- 닉네임 입력 -->
+                    <div class="mb-3">
+                        <label class="form-label">닉네임</label>
+                        <input class="form-control form-control-sm" id="edit-comments-nickname">
+                    </div>
+                    <!-- 본문 입력 -->
+                    <div class="mb-3">
+                        <label class="form-label">댓글 내용</label>
+                        <textarea class="form-control form-control-sm" rows="3" id="edit-comments-body"></textarea>
+                    </div>
+
+                    <!-- 히든 입력 -->
+                    <input type="hidden"  id="edit-comments-id">
+                    <input type="hidden"  id="edit-comments-article-id">
+
+
+                    <!-- 전송 버튼 -->
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="comments-update-btn">수정완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal 이벤트 처리 -->
+<script>
+{
+    //모달 요소 선택
+    const commentsEditModal = document.querySelector("#comments-edit-modal");
+
+    //모달 이벤트 감지
+    commentsEditModal.addEventListener('show.bs.modal', function (event) {
+        //console.log("모달이 열렸습니다...!");
+
+        //트리거 버튼 선택
+        const triggerBtn = event.relatedTarget;
+
+        // 데이터 가져오기
+        const id = triggerBtn.getAttribute("data-bs-id");
+        const nickname = triggerBtn.getAttribute("data-bs-nickname");
+        const body = triggerBtn.getAttribute("data-bs-body");
+        const articleId = triggerBtn.getAttribute("data-bs-article-id");
+
+        // 데이터를 반영
+        document.querySelector("#edit-comments-nickname").value = nickname
+        document.querySelector("#edit-comments-body").value = body
+        document.querySelector("#edit-comments-id").value = id
+        document.querySelector("#edit-comments-article-id").value = articleId
+
+    });
+}
+
+{
+    // 수정완료 버튼
+    const commentsUpdateBtn = document.querySelector("#comments-update-btn");
+
+    // 클릭 이벤트 감지 및 처리
+    commentsUpdateBtn.addEventListener("click", function(){
+        // 수정 댓글 객체 생성
+        const comments = {
+            id : document.querySelector("#edit-comments-id").value,
+            nickname : document.querySelector("#edit-comments-nickname").value,
+            body : document.querySelector("#edit-comments-body").value,
+            article_id : document.querySelector("#edit-comments-article-id").value
+        };
+
+        console.log(comments);
+
+        // 수정 RestApi 호출 - fetch()
+
+         const url = "/api/comments/"+comments.id;
+
+        fetch(url,{
+
+            method : "PATCH", //post 요청
+            body : JSON.stringify(comments), // comments JS 객체를 JSON으로 변경하여 보냄
+            headers:{
+                "Content-Type" : "application/json"
+            }
+
+        }).then(response => {
+
+            //http 응답 코드에 따른 메시지 출력
+            const msg = (response.ok) ? "댓글이 수정되었습니다." : "댓글 스장 실패..!";
+            alert(msg);
+
+            // 현재 페이지 새로고침
+            window.location.reload();
+        });
+
+
+    });
+}
+</script>
