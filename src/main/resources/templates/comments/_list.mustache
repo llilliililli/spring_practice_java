@@ -5,6 +5,7 @@
             <div class="card-header">
                 {{nickname}}
                 <!-- Button trigger modal -->
+                <!-- 댓글 수정 버튼 -->
                 <button type="button"
                         class="btn btn-sm btn-outline-primary"
                         data-bs-toggle="modal"
@@ -13,6 +14,12 @@
                         data-bs-nickname="{{nickname}}"
                         data-bs-body="{{body}}"
                         data-bs-article-id="{{articleId}}">수정</button>
+
+                <!-- 댓글 삭제 버튼 -->
+                <button type="button"
+                        class="btn btn-sm btn-outline-danger comments-delete-btn"
+                        data-comments-id="{{id}}">삭제</button>
+
             </div>
             <div class="card-body">
                 {{body}}
@@ -125,5 +132,54 @@
 
 
     });
+}
+</script>
+
+<!-- 댓글 삭제 -->
+
+<script>
+{
+    //삭제 버튼 선택 ( querySelectorAll -> 여러개의 버튼 반환 )
+    // ".comments-delete-btn" -> class를 가져올 때는 . 으로 표현
+    const commentsDeleteBtns = document.querySelectorAll(".comments-delete-btn");
+
+    //각각의 버튼 동작 설정
+    commentsDeleteBtns.forEach(btn => {
+
+        btn.addEventListener("click", (event) => {
+            //console.log("삭제 버튼이 클릭되었습니다.");
+
+            //이벤트 발생요소 선택
+            const commentDeleteBtn = event.srcElement;
+
+            //삭제 댓글 id 가져오기
+            const commentsId = commentDeleteBtn.getAttribute("data-comments-id")
+
+            console.log(` 삭제 버튼 클릭 : ${commentsId}번 댓글 `); // ` 백틱키 사용 => "삭제 버튼 클릭 : " + commentId + "번 댓글 " ( 동일 )
+
+            //삭제 API 호출 및 처리
+
+            const url = `/api/comments/${commentsId}`;
+
+            fetch(url, {
+                method:"DELETE",
+            }).then(response =>{
+                //댓글 삭제 실패 처리
+                if(!response.ok){
+                    alret("댓글 삭제 실패...!");
+                    return;
+                }
+
+                //삭제 성공 시, 댓글을 화면에서 지움! ( 자동 새로고침됨 )
+                const target = document.querySelector(`#comments-${commentsId}`);
+                target.remove();
+
+                 // 위 방식과 현재 페이지 새로고침 ( window.location.reload(); ) 차이는?
+
+            });
+
+        });
+
+    })
 }
 </script>
