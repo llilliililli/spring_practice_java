@@ -19,6 +19,16 @@ repositories {
 }
 
 dependencies {
+
+	//PostgreSql 드라이버 추가
+	runtimeOnly 'org.postgresql:postgresql:42.3.4'
+
+	//Oracle 드라이버 추가
+	// 추후 필요시 추가
+
+	//Mysql 드라이버 추가
+	// 추후 필요시 추가
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA : java 언어의 소스를 DB가 이해할 수 있도록 사용되는 소스
 	implementation 'com.h2database:h2' // 메모리 DB
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 구글 로그인 연동
