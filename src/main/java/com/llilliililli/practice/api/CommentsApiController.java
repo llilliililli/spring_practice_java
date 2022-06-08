@@ -1,6 +1,8 @@
 package com.llilliililli.practice.api;
 
+import com.llilliililli.practice.annotation.RunningTime;
 import com.llilliililli.practice.dto.CommentsDto;
+import com.llilliililli.practice.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +53,7 @@ public class CommentsApiController {
     }
 
     // 댓글 삭제
+    @RunningTime // AOP annotation으로 RunningTime 확인!
     @DeleteMapping("/api/comments/{id}")
     public ResponseEntity<CommentsDto> delete(@PathVariable Long id){
 

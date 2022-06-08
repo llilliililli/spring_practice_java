@@ -1,10 +1,11 @@
-package com.llilliililli.practice.api;
+package com.llilliililli.practice.service;
 
 import com.llilliililli.practice.dto.CommentsDto;
 import com.llilliililli.practice.entity.Article;
 import com.llilliililli.practice.entity.Comments;
 import com.llilliililli.practice.repository.ArticleRepository;
 import com.llilliililli.practice.repository.CommentsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class CommentsService{
 
@@ -52,6 +54,10 @@ public class CommentsService{
     @Transactional
     public CommentsDto create(Long articleId, CommentsDto dto) {
 
+        // 로그 확인으로 일일이 넣기엔 불편한 소스
+//        log.info("입력값 => {}",articleId);
+//        log.info("입력값 => {}",dto);
+
         // 게시글 조회 및 예외 발생
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(()-> new IllegalArgumentException("댓글 생성 실패! 대상 게시글이 없습니다."));
@@ -64,6 +70,12 @@ public class CommentsService{
 
         // DTO로 변경하여 반환
         return CommentsDto.createCommentDto(created);
+
+        // 로그 확인으로 일일이 넣기엔 불편한 소스
+//        CommentsDto createDto = CommentsDto.createCommentDto(created);
+//        log.info("반환값 => {}",createDto);
+
+//        return createDto;
     }
 
     @Transactional
